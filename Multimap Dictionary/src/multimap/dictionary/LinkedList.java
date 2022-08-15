@@ -25,8 +25,9 @@ public class LinkedList {
 
     //Inserts a new Link at the first of the list
     public void insert(int key, String value) {
-        Node link = new Node(key,value);
-        if(first != null)
+        Node link = new Node(key,value); 
+        // first != null 
+        if(!isEmpty())     
         {         
           Node p = this.first;
           Node q = this.first;
@@ -44,12 +45,13 @@ public class LinkedList {
                   break;
               }
           }
-          if(q.nextLink != null )
+          
+          if(q.nextLink != null && q.key <= key )
           {
            q=q.nextLink;
           Current.nextLink=link;
           link.nextLink=q;
-          }
+          }        
           else
           {
               if(Current.key <= link.key)
@@ -58,24 +60,39 @@ public class LinkedList {
               }
               else
               {
-                  if(p.key ==   this.first.key && p.value ==   this.first.value)
+                  if(p.key == this.first.key && p.value.equals(this.first.value))
                   {
-                   q=this.first;
-                   this.first=link;
-                   this.first.nextLink=q;
+                      // If last == first
+                      //check if fisrt key < key or first.key > Key
+                      if(key < p.key)
+                      {
+                        q=this.first;
+                        this.first=link;
+                        this.first.nextLink=q;
+                      }
+                      else
+                      {
+                          this.first.nextLink=link;
+                          link.nextLink=Current;
+                      }
+                    
+                  
                   }
                   else
                   {
+                      // If last != first
+                      //check if fisrt key < key or first.key > Key
+                      
                       p.nextLink=link;
                       link.nextLink=Current;
                   }
                   }
               }
           }
-        
+        // first = null LinkedList => SIZE = 0
         else
         {
-            first =link;
+            first = link;
         }
         
     }
@@ -101,37 +118,52 @@ public class LinkedList {
         Node temp = first;
         Node p = this.first;
         Node q = this.first;
+        int count = 0;
         if(first == null){
          return false;
         }
-        while(temp.key != key || temp.value != value)
+        while(temp != null)
         {
-            if(temp.nextLink != null)
+             if (temp.key == key &&  value.equals(temp.value) )
+        {
+            if(temp.key == first.key && temp.value.equals(first.value))
             {
-                p = temp;
-                temp = temp.nextLink;
+               if (temp.nextLink == null)
+               {
+               this.first = null;
+               }
+               else
+               {
+                   this.first = temp.nextLink;
+               }     
             }
             else
             {
-                break;
-            }   
-        }
-        if (temp.key == key && temp.value == value )
-        {
-            if(temp.key == first.key && temp.value== first.value )
-            {
-            this.first = temp.nextLink;
+                if (temp.nextLink == null)
+               {
+                p.nextLink = null;
+               }
+               else
+               {
+                   p.nextLink = temp.nextLink;
+               }    
+
             }
-            else
-            {
-            p.nextLink = temp.nextLink;
-            }
-            return true;
+            count ++;
         }
-        else
+             p = temp;
+             temp = temp.nextLink;
+        
+         }
+        if(count ==0)
         {
             return false;
         }
+        else
+        {
+            return true;
+        }
+           
 
     }
     
@@ -157,24 +189,15 @@ public class LinkedList {
         Node temp = first;
         Node p = this.first;
         Node q = this.first;
+        int count = 0;
         if(first == null){
          return false;
         }
-        while(temp.key != key || temp.value != Oldvalue)
+        while(temp != null)
         {
-            if(temp.nextLink != null)
-            {
-                p = temp;
-                temp = temp.nextLink;
-            }
-            else
-            {
-                break;
-            }   
-        }
-        if (temp.key == key && temp.value == Oldvalue )
+             if (temp.key == key && temp.value.equals(Oldvalue) )
         {
-            if(temp.key == first.key && temp.value== first.value )
+            if(temp.key == first.key && temp.value.equals(first.value))
             {
             this.first.value = Newvalue;
             }
@@ -182,20 +205,28 @@ public class LinkedList {
             {
             temp.value = Newvalue;
             }
-            return true;
+            count++;
+            
         }
-        else
+             p = temp;
+             temp = temp.nextLink;
+        
+         }
+        if(count ==0)
         {
             return false;
         }
+        else
+        {
+            return true;
+        }
+        
+  }
+    
 
-    }
-    
-    
-    
-    
-    
      public void printByKey(int key) {
+         if(!isEmpty())
+         {
         Node currentLink = first;
         System.out.println("Node: ");
         while(currentLink != null) {
@@ -207,30 +238,38 @@ public class LinkedList {
         }
         System.out.println("");
     }
-
+     }
 
     //Prints list data
     public void printList() {
+                 if(!isEmpty())
+         {
         Node currentLink = first;
         System.out.print("List: ");
+        System.out.println("");
+        int key = currentLink.key;
+        System.out.print("{ "+Integer.toString(currentLink.key)+" : ");
         while(currentLink != null) {
+            if(currentLink.key == key)
+            {
+
+            }
+            else
+            {
+                System.out.print("}");
+                key = currentLink.key;
+                System.out.println("");
+                System.out.print("{ "+Integer.toString(currentLink.key)+" : ");
+
+            }
             currentLink.printLink();
             currentLink = currentLink.nextLink;
         }
-        System.out.println("");
+        System.out.print("}");
+        
+    }
     }
 
-// public void AddFirst(int key, String value) {
-//    Node Second = first;
-//    first = new Node(){};
-//    first.key = key;
-//    first.value = value;
-//    first.next = Second;
-//    if (last == null) {
-//      last = first;
-//    }
-//  }
-    
-    
+
   
 }

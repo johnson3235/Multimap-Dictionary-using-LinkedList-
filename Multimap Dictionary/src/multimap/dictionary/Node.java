@@ -25,7 +25,7 @@ public class Node {
 
     //Print Link data
     public void printLink() {
-        System.out.print("{" + Integer.toString( this.key ) + ", " + this.value+ "} ");
+        System.out.print(this.value+ " , ");
     }
 }
 
