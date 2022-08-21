@@ -29,69 +29,62 @@ public class LinkedList {
         // first != null 
         if(!isEmpty())     
         {         
-          Node p = this.first;
-          Node q = this.first;
+          Node last = this.first;
           Node Current = this.first;
-          while( key > Current.key)
+          
+          while( key >= Current.key)
           {
               if(Current.nextLink != null)
               {
-                p=Current;
+                last=Current;
                 Current=Current.nextLink;
-                q=q.nextLink;
               }
               else
               {
                   break;
               }
           }
-          
-          if(q.nextLink != null && q.key <= key )
-          {
-           q=q.nextLink;
-          Current.nextLink=link;
-          link.nextLink=q;
-          }        
-          else
-          {
-              if(Current.key <= link.key)
+          if(Current.key <= link.key)
               {
+                 //Next node Will Be Link 
                  Current.nextLink=link;  
               }
-              else
+          else
               {
-                  if(p.key == this.first.key && p.value.equals(this.first.value))
+                  // current (key) > Link (key)
+                  //check last == first
+                  if(last.key == this.first.key && last.value.equals(this.first.value))
                   {
                       // If last == first
+                      // Link < first
                       //check if fisrt key < key or first.key > Key
-                      if(key < p.key)
+                      if(key < last.key)
                       {
-                        q=this.first;
+                          System.out.println("33");
+                        Current=this.first;
                         this.first=link;
-                        this.first.nextLink=q;
+                        this.first.nextLink=Current;
                       }
+                      // Link > first
                       else
                       {
                           this.first.nextLink=link;
                           link.nextLink=Current;
                       }
-                    
-                  
                   }
                   else
-                  {
+                  {    
                       // If last != first
                       //check if fisrt key < key or first.key > Key
-                      
-                      p.nextLink=link;
+                      last.nextLink=link;
                       link.nextLink=Current;
                   }
                   }
               }
-          }
+          
         // first = null LinkedList => SIZE = 0
         else
-        {
+        { 
             first = link;
         }
         
@@ -116,8 +109,7 @@ public class LinkedList {
     
     private boolean deleteNode(int key, String value) {
         Node temp = first;
-        Node p = this.first;
-        Node q = this.first;
+        Node Last = this.first;
         int count = 0;
         if(first == null){
          return false;
@@ -141,17 +133,17 @@ public class LinkedList {
             {
                 if (temp.nextLink == null)
                {
-                p.nextLink = null;
+                Last.nextLink = null;
                }
                else
                {
-                   p.nextLink = temp.nextLink;
+                   Last.nextLink = temp.nextLink;
                }    
 
             }
             count ++;
         }
-             p = temp;
+             Last = temp;
              temp = temp.nextLink;
         
          }
@@ -187,8 +179,7 @@ public class LinkedList {
     
     private boolean modifyNode(int key, String Oldvalue ,String Newvalue) {
         Node temp = first;
-        Node p = this.first;
-        Node q = this.first;
+        Node Last = this.first;
         int count = 0;
         if(first == null){
          return false;
@@ -208,7 +199,7 @@ public class LinkedList {
             count++;
             
         }
-             p = temp;
+             Last = temp;
              temp = temp.nextLink;
         
          }
@@ -225,6 +216,7 @@ public class LinkedList {
     
 
      public void printByKey(int key) {
+         System.out.println("");
          if(!isEmpty())
          {
         Node currentLink = first;

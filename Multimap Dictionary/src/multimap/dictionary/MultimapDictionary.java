@@ -89,24 +89,7 @@ public class MultimapDictionary {
           System.out.println("Do you Want Containue ? (Y/N)");
           y= sc.next().charAt(0);
         }
-//        
-        
-        
-
-////        
-//           L.insert(2, "tina");
-//           L.insert(0, "johnY");
-//           L.insert(1, "marina");
-//           L.insert(0, "johnS");
-//           L.insert(3, "johnS");
-//           L.insert(0, "johnS2");
-//           L.insert(1, "johnS4");
-//           L.insert(2, "johnS2");
-//           L.printList();
-//           L.delete(1, "johnS");
-//           L.modify(2, "tina","mirnaa");
-//           L.printByKey(2);
-           
+ 
            
     }
     
